@@ -1,0 +1,59 @@
+<div id="jumbotron">
+	<h1>Eat Da Burger</h1>
+	<img id="burgerimg" src="http://static1.businessinsider.com/image/512b7fa3ecad04e11c000001-480/in-n-out-burger.jpg">
+	
+</div>
+
+
+<div class="userpanel">
+{{!-- Burgers ready --}}
+  <div id="ready">
+	<h2>Your Burgers</h2>
+	<ul>
+		{{#each burgers}}
+		  {{#unless this.devoured}}
+		<li class="list-group-item">
+						<div class="input-group">
+							<p class="lead"> {{this.burger_name}} </p>
+							<span class="input-group-btn">
+								<form action="/update/{{this.id}}?_method=PUT" method="POST">
+									<input type="hidden" name="devoured" value="true">
+									<button class="btn btn-default btn-lg" type="submit"> EAT IT! </button>
+								</form>
+							</span>
+						</div>
+					</li>
+		  {{/unless}}
+		{{/each}}
+	</ul>
+  </div>
+ {{!-- input form --}}
+	<div id="userinput">
+		<form action="/create" method="POST">
+			<label for="burger">Burger:</label>
+			<input id="burger" type="text" name="name">
+
+			<button type="submit">Add a Burger</button>
+		</form>
+
+
+	</div>
+
+	<div id="devoured">
+		<h2>Devoured Burgers</h2>
+		<div>
+			<div class="panel panel-default">
+				<ul class="list-group">
+				{{#each burgers}}
+					{{#if this.devoured}}
+					<li class="list-group-item">
+						<p class="lead">{{this.burger_name}} </p>
+					</li>
+					{{/if}}
+				{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>
